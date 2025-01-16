@@ -30,10 +30,10 @@ const Chat = () => {
   });
 
   return (
-    <div>
+    <div className='overflow-y-hidden'>
       {user ? (
         <>
-          <h1>Chat Room</h1>
+         
           <ChatBox socket={socket} user={user} />
         </>
       ) : (

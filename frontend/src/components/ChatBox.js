@@ -4,24 +4,22 @@ const ChatBox = ({ socket,user }) => {
   const curruser=user;
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [sessions, setSessions] = useState([]); // To store session list
-  const [selectedSession, setSelectedSession] = useState(null); // To store the selected session
-  const [currentSessionId, setCurrentSessionId] = useState(null); // To store the current session ID
+  const [sessions, setSessions] = useState([]); 
+ 
+  const [currentSessionId, setCurrentSessionId] = useState(null); 
 
   // console.log(user);
   useEffect(() => {
-    // Listen for the session ID when a new chat is started
+    
     socket.on('newSessionStarted', ({ sessionId }) => {
-      setCurrentSessionId(sessionId); // Save the new session ID
+      setCurrentSessionId(sessionId); 
     });
 
-    socket.emit('getSessionList',{user:curruser}); // Request the session list from the server
+    socket.emit('getSessionList',{user:curruser}); 
     socket.on('sessionList', (sessionList) => {
-      setSessions(sessionList); // Store the list of sessions
-      // console.log(sessions);
+      setSessions(sessionList); 
     });
 
-    // Listen for chat history when switching sessions
     socket.on('loadChatHistory', (messages) => {
       const chatMessages = Array.isArray(messages) ? messages : [];
       setMessages(
@@ -34,7 +32,6 @@ const ChatBox = ({ socket,user }) => {
       );
     });
 
-    // Listen for incoming messages from the server
     socket.on('receiveMessage', ({ message, sender }) => {
       setMessages(prevMessages => [
         ...prevMessages,
@@ -42,7 +39,6 @@ const ChatBox = ({ socket,user }) => {
       ]);
     });
 
-    // Cleanup listeners when the component is unmounted or socket changes
     return () => {
       socket.off('newSessionStarted');
       socket.off('loadChatHistory');
@@ -51,47 +47,37 @@ const ChatBox = ({ socket,user }) => {
     };
   }, [socket,curruser]);
 
-  // Trigger the start of a new chat session
   const handleStartNewChat = () => {
-    socket.emit('startNewChat', { user: curruser }); // Send user object when starting a new chat
+    socket.emit('startNewChat', { user: curruser }); 
   };
 
-  // Send a message to the server
   const handleSendMessage = () => {
     if (message.trim() && currentSessionId) {
       socket.emit('sendMessage', { content: message, sender: user, sessionId: currentSessionId });
 
-      // Update the UI to reflect the sent message
       setMessages(prevMessages => [
         ...prevMessages,
         { type: 'sent', text: message },
       ]);
 
-      setMessage(''); // Clear the input field
+      setMessage(''); 
     }
   };
 
-  // Handle session click to load chat history for the selected session
+  
   const handleSessionClick = (sessionId) => {
-    setCurrentSessionId(sessionId); // Set the current session ID
-    socket.emit('loadChatHistoryForSession', sessionId); // Fetch chat history for the selected session
+    setCurrentSessionId(sessionId); 
+    socket.emit('loadChatHistoryForSession', sessionId); 
   };
+  // console.log(messages);
 
   return (
-    <div style={{ display: 'flex', maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <div style={{ width: '200px', marginRight: '20px', borderRight: '1px solid #ccc' }}>
-        <h4>Sessions</h4>
+    <div  className='flex m-auto pl-0 p-5 h-[95vh] overflow-y-hidden'>
+      <div className='w-1/4 md:w-1/6 mr-2'>
+        <h4 className='text-2xl font-bold text-center'>Chat History</h4>
         <button
           onClick={handleStartNewChat}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: '#28a745',
-            color: '#fff',
-            marginBottom: '20px',
-            borderRadius: '5px',
-            border: 'none',
-          }}
-        >
+          className='px-5 py-2 bg-[#28a745] rounded-lg my-5 ml-7 '>
           Start New Chat
         </button>
         <ul>
@@ -107,30 +93,23 @@ const ChatBox = ({ socket,user }) => {
                   backgroundColor: session.sessionId === currentSessionId ? '#f0f0f0' : 'transparent',
                 }}
               >
-                <strong>Session {session.sessionId}</strong>
+                {/* <strong>Session {session.sessionId}</strong> */}
                 <br />
-                {session.lastMessage ? <small>Last message: {session.lastMessage}</small> : null}
+                {session.lastMessage ? <strong>Last message: {session.lastMessage}</strong> : <strong>This chat is empty</strong>}
                 <br />
                 <small>Messages: {session.messagesCount}</small>
               </li>
             ))
           ) : (
-            <li>No sessions available</li>
+            <li className='text-lg'>No sessions available</li>
           )}
         </ul>
       </div>
 
       <div style={{ width: '100%' }}>
         <div
-          className="chat-messages"
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '10px',
-            padding: '10px',
-            maxHeight: '300px',
-            overflowY: 'auto',
-            marginBottom: '10px',
-          }}
+          className="border-solid border-gray-700 rounded-lg border-2 p-2 mb-2 h-[80vh]"
+         
         >
           {messages.length>0?messages.map((msg, index) => (
             <div
@@ -152,7 +131,7 @@ const ChatBox = ({ socket,user }) => {
                 {msg.text}
               </span>
             </div>
-          )):<p>Please click on start New Chat to begin the conversation.</p>}
+          )):<p className='flex flex-wrap'>Please click on start New Chat to begin the conversation.</p>}
         </div>
 
         <div style={{ display: 'flex' }}>

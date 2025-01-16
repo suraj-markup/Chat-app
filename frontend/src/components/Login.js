@@ -10,7 +10,7 @@ import {
   Spin,
   Typography,
 } from "antd";
-import React, { Fragment, useState,useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../auth/AuthContext";
@@ -74,10 +74,11 @@ const Login = () => {
   };
 
   return (
-    <Fragment>
-      <Row align="middle">
-        <Col span={isDesktopView ? 8 : 24} offset={isDesktopView ? 8 : 0}>
-          <Card title="SignIn">
+    <div className="h-[92vh] flex flex-col justify-center items-center ">
+     <h1 className="text-3xl font-bold  mb-10">Welocme to the Chat Room</h1>
+      <Row align="midle" className="w-full px-5 mx-5" >
+        <Col span={isDesktopView ? 8 : 24} offset={isDesktopView ? 8 : 0} className="border-2-solid border-gray-700">
+          <Card title="SignIn" className="border-2-solid border-gray-800">
             {error ? (
               <Alert
                 className="alert_error"
@@ -103,7 +104,7 @@ const Login = () => {
                   },
                 ]}
               >
-                <Input placeholder="Email address" />
+                <Input placeholder="Email address"  className="border-2-solid border-gray-800"/>
               </Form.Item>
 
               <Form.Item
@@ -111,7 +112,7 @@ const Login = () => {
                 name="password"
                 rules={[{ required: true }]}
               >
-                <Input.Password placeholder="Password" />
+                <Input.Password placeholder="Password" className="border-2-solid border-gray-800" />
               </Form.Item>
 
               <Form.Item>
@@ -130,7 +131,7 @@ const Login = () => {
           </Card>
         </Col>
       </Row>
-    </Fragment>
+    </div>
   );
 };
 
