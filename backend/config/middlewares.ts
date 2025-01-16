@@ -5,10 +5,10 @@ export default [
     name: 'strapi::cors',
     config: {
       enabled: true,
-      origin: ['https://chat-app-drab-delta.vercel.app/'], 
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], 
-      headers: ['Content-Type', 'Authorization'], 
-      credentials: true, 
+      origin: ['https://chat-app-drab-delta.vercel.app'],
+         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'], 
+         headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'], 
+         keepHeaderOnError: true 
     },
   },
   'strapi::security',
