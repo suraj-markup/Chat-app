@@ -23,7 +23,7 @@ export default {
       const io = require('socket.io')(strapi.server.httpServer, {
         cors: {
           origin: 'hhttps://chat-app-drab-delta.vercel.app/', 
-          methods: ['GET', 'POST'],
+          methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
           credentials: true,
         },
       });
