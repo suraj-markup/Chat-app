@@ -22,7 +22,7 @@ const Chat = () => {
   }
 
   // Socket connection, using the token for authentication
-  const socket = io('http://localhost:1337', {
+  const socket = io('https://prized-nature-98a1af9371.strapiapp.com', {
     withCredentials: true,
     auth: {
       token: getToken(), // Retrieve JWT token
