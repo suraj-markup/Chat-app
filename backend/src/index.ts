@@ -24,6 +24,7 @@ export default {
         cors: {
           origin: 'hhttps://chat-app-drab-delta.vercel.app/', 
           methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+          headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'], 
           credentials: true,
         },
       });

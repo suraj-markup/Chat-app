@@ -24,6 +24,7 @@ const Chat = () => {
   // Socket connection, using the token for authentication
   const socket = io('https://prized-nature-98a1af9371.strapiapp.com', {
     withCredentials: true,
+    headers: '*',
     auth: {
       token: getToken(), // Retrieve JWT token
     },
