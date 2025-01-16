@@ -5,10 +5,10 @@ export default [
     name: 'strapi::cors',
     config: {
       enabled: true,
-      origin: ['http://localhost:3000'], // Frontend URL
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // Allowed methods
-      headers: ['Content-Type', 'Authorization'], // Allowed headers
-      credentials: true, // Enable cookies if needed
+      origin: ['https://chat-app-drab-delta.vercel.app/'], 
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], 
+      headers: ['Content-Type', 'Authorization'], 
+      credentials: true, 
     },
   },
   'strapi::security',

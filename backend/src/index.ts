@@ -22,7 +22,7 @@ export default {
     if (!strapi.io) {
       const io = require('socket.io')(strapi.server.httpServer, {
         cors: {
-          origin: 'http://localhost:3000', // Match frontend origin
+          origin: 'hhttps://chat-app-drab-delta.vercel.app/', 
           methods: ['GET', 'POST'],
           credentials: true,
         },
@@ -34,7 +34,7 @@ export default {
         // Start new chat session with user association
         socket.on('startNewChat', async ({ user }) => {
           const sessionId = uuidv4(); // Generate a unique session ID
-          console.log('Starting new chat for user:', user);
+          // console.log('Starting new chat for user:', user);
 
           // Save the session with userId
           await strapi.db.query('api::session.session').create({
@@ -62,7 +62,7 @@ export default {
 
         // Fetch chat history for a session
         socket.on('loadChatHistoryForSession', async (sessionId) => {
-          console.log('Fetching chat history for session:', sessionId);
+          // console.log('Fetching chat history for session:', sessionId);
           const session = await strapi.db.query('api::session.session').findOne({
             where: { sessionId: sessionId },
           });
