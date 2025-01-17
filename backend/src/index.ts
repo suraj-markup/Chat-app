@@ -22,9 +22,9 @@ export default {
     if (!strapi.io) {
       const io = require('socket.io')(strapi.server.httpServer, {
         cors: {
-          origin: 'hhttps://chat-app-drab-delta.vercel.app/', 
+          origin: 'https://chat-app-drab-delta.vercel.app', 
           methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-          headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'], 
+          allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'Accept'], 
           credentials: true,
         },
       });
